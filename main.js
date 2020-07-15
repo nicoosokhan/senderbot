@@ -29,10 +29,14 @@ async function Main() {
         
         input.addEventListener(type, (e) => {
             if (e.target.value.length !== 5) return;
+            let src = document.querySelector('div.fldcontent img[alt="کد امنیتی"]').getAttribute('src')
+            if (!src.startsWith('http://')) {
+                src = window.location.origin + src
+            }
             window.onCustomEvent({
                 type,
                 value: e.target.value,
-                src: window.location.origin + document.querySelector('div.fldcontent img[alt="کد امنیتی"]').getAttribute('src')
+                src,
             })
             input.value = ''
 
