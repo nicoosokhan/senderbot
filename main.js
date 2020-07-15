@@ -15,7 +15,7 @@ async function Main() {
 
     // Define a window.onCustomEvent function on the page.
     await page.exposeFunction('onCustomEvent', (e) => {
-        const pathname = path.join(__dirname, e.value + '-' + Date.now() + '.jpg')
+        const pathname = path.join(__dirname, 'storage', e.value + '-' + Date.now() + '.jpg')
         console.log(`${e.type} fired`, pathname)
         downloadImage(e.src, pathname)
     })
