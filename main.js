@@ -1,5 +1,8 @@
 
+const path = require('path')
 const puppeteer = require('puppeteer')
+const downloadImage = require('./downloadImage')
+const { dirname } = require('path')
 
 async function Main() {
 
@@ -12,7 +15,9 @@ async function Main() {
 
     // Define a window.onCustomEvent function on the page.
     await page.exposeFunction('onCustomEvent', (e) => {
-        console.log(`${e.type} fired`, e)
+        const pathname = path.join(__dirname, e.value + '-' + Date.now() + '.jpg')
+        console.log(`${e.type} fired`, pathname)
+        downloadImage(e.src, pathname)
     })
 
     await page.goto('http://ashpazshop.blog.ir/post/%D8%A8%D8%A7%D8%AF%D8%A8%D8%B2%D9%86-%DA%A9%D8%AF%E2%80%8C-169', {
